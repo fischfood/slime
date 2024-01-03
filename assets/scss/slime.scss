@@ -1,0 +1,105 @@
+@charset 'utf-8';
+
+@import 'settings';
+@import 'foundation';
+@import 'motion-ui';
+
+@import
+'config/settings2023',
+'config/variables2023',
+'config/foundation',
+'config/mixins',
+'config/icon-font',
+'config/typography',
+'plugins/plugins',
+'site/site';
+
+/* Testing Lines */
+.grid-toggle {
+	position: fixed;
+	top: 50%;
+	z-index: 9999999999;
+	writing-mode: vertical-rl;
+	background: black;
+	color: white;
+	left: 0;
+	border-radius: 10px 0 0 10px;
+	transform: rotate(180deg);
+	cursor: pointer;
+	font-weight: bold;
+	height: 90px;
+	text-align: center;
+
+
+	&:before {
+		content: 'Grid Off';
+		padding: .5rem;
+	}
+}
+
+// .tld-build, .tld-test {
+//	.off-canvas-wrapper {
+//		a[href="#"]:not(.load-more), a[href=""]:not(.load-more) {
+//			color: red !important;
+//			outline: 2px solid red !important;
+//			animation: pulse 1s infinite;
+//		}
+//	}
+//}
+
+.tld-grid {
+	#main-menu {
+		outline: 1px solid blue;
+
+		> div {
+			position: relative;
+			&:before, &:after {
+				content: "";
+				position: absolute;
+				height: 4000px;
+				width: 1px;
+				top: 0;
+				left: 0;
+				background: cyan;
+				box-shadow: .9375rem 0px 0px tomato;
+			}
+			&:after {
+				left: auto;
+				right: 0;
+				box-shadow: -.9375rem 0px 0px tomato;
+			}
+		}
+	}
+
+	.grid-toggle {
+		background: #3FC1D0;
+		&:before {
+			content: 'Grid On';
+		}
+	}
+
+	.off-canvas-wrapper {
+		a[href="#"]:not(.load-more), a[href=""]:not(.load-more) {
+			color: red !important;
+			outline: 2px solid red !important;
+			animation: pulse 1s infinite;
+		}
+	}
+
+}
+
+@keyframes pulse {
+	0% {
+		outline: 2px solid red;
+	}
+	50% {
+		outline: 2px solid transparent
+	}
+	100% {
+		outline: 2px solid red;
+	}
+}
+
+html {
+	background-color: $tmg_coffee; // Set HTML to lowest item background color in case page is too short for window. Make sure body color is set!
+}

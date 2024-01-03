@@ -1,0 +1,121 @@
+/**
+ * 00. Miscellaneous
+ * 01. Colors
+ * -- Include functions that require colors
+ * 02. Animations
+ * 03. Spacing
+ * 04. Topbar Extended
+ * 05. Primary Menu
+ * 06. Footer
+ * 07. Forms
+ * 08. Comments
+ * 09. Page Templates
+ * 10. Visibility
+ */
+
+
+// 00. Miscellaneous
+$global-pattern-height: 300px;
+
+// 01. Colors
+$color-map: (
+		primary     : get-color(primary),
+		secondary   : get-color(secondary),
+		light-primary : $light-primary,
+		light-secondary : $light-secondary,
+		dark-primary : $dark-primary,
+		accent      : $accent-color,
+		light-gray  : $light-gray,
+		medium-gray : $medium-gray,
+		dark-gray   : $dark-gray,
+		black       : $black,
+		white       : $white,
+		gray        : $gray
+);
+
+$global-border-width: 4px;
+$global-border: $global-border-width solid $light-gray;
+
+// -- functions that require colors
+
+@import 'functions';
+
+// 02. Animations
+$global-timing: 300ms;
+$global-easing: ease-in-out;
+
+$slow-timing: $global-timing * 1.5;
+
+
+// 03. Spacing
+$directions: (
+		top,
+		right,
+		bottom,
+		left
+);
+
+$spacing-sizes: (
+		none   : 0,
+		small  : 1rem,
+		medium : 2rem,
+		large  : 4rem
+);
+
+$menu-item-padding: 1rem;
+
+
+// 04. Topbar Extended
+$topbar-height:         rem-calc(150);
+$topbar-height-small:   rem-calc(32);
+$topbar-support-width:  rem-calc(300);
+$topbar-item-height:    $topbar-height - 1rem;
+$topbar-padding-medium: 0 (map-get($grid-column-gutter, medium)/2);
+
+$topbar-item-hover: $dark-primary;
+
+$utility-item-height: rem-calc( 26 );
+
+$topbar-scrolled-height:     rem-calc(80);
+$topbar-item-scrolled-height:    $topbar-scrolled-height - 1rem;
+
+
+// 05. Primary Menu
+$primary-menu-height:      $topbar-item-height;
+$primary-menu-line-height: $topbar-item-height;
+$primary-menu-margin-top:  -.5rem;
+
+$primary-submenu-bg-color:   $primary-color;
+$primary-submenu-link-color: $white;
+
+
+// 06. Footer
+$footer-bg-color:   $tmg_coffee; //$white;
+$footer-text-color: $tmg_cream; //$accent-color;
+$footer-link-color: $primary-color;
+$footer-link-hover: $secondary-color;
+
+// 07. Forms
+$form-item-padding: .5rem;
+
+
+// 08. Comments
+$comment-border-radius: 0;
+$comment-original-bg:   scale-color( $light-gray, $lightness: 50% );
+$comment-border-color:  $medium-gray;
+$comment-reply-bg:      $white;
+$comment-gutter:        1.5rem;
+
+
+// 09. Page Templates
+
+$full-page-header-background: get-color(secondary);
+$full-page-header-color:      color-legibility($full-page-header-background);
+
+// 10. Visibility
+
+$breakpoint-mobile: 768px down;
+$breakpoint-desktop: 769px up;
+
+$mobile-down: 'screen and ( max-width: 768px)';
+$desktop-up: 'screen and ( min-width: 769px)';

@@ -1,0 +1,36 @@
+.testimonial-slider {
+	@include slick-fade();
+	@include slick-arrows( $white, 8 );
+
+	.slick-slide {
+		> div {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	.testimonial-content {
+		text-transform: uppercase;
+		font-weight: 600;
+
+		span, p {
+			display: inline;
+		}
+
+		span.quote {
+			color: darken( $primary-color, 12.5%);
+		}
+	}
+
+	.testimonial-details {
+		text-align: right;
+		padding-right: 2rem;
+	}
+
+	@include breakpoint( $breakpoint-mobile ) {
+		.testimonial-content {
+			font-size: 1.25rem;
+		}
+	}
+}

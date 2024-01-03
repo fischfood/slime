@@ -1,0 +1,144 @@
+/**
+ * 01. Spacing
+ * 02. Placeholder
+ * 03. Global Forms
+ * 04. Slick
+ */
+
+
+// 01. Spacing
+
+@mixin spacing-layout( $property, $prefix: '' ) {
+  $property_class: #{$property} !default;
+
+  @if $prefix != '' {
+    $property_class: #{$prefix}-#{$property};
+  }
+
+  @each $direction in $directions {
+    .#{$property_class}-#{$direction} {
+      #{$property}-#{$direction}: 2rem;
+    }
+
+    @each $type, $size in $spacing-sizes {
+      .#{$property_class}-#{$direction}-#{$type} {
+        #{$property}-#{$direction}: $size;
+      }
+    }
+  }
+
+  .#{$property_class}-all {
+    #{$property}: 2rem;
+  }
+
+  .#{$property_class}-vertical {
+    #{$property}-top: 2rem;
+    #{$property}-bottom: 2rem;
+  }
+
+  .#{$property_class}-horizontal {
+    #{$property}-left: 2rem;
+    #{$property}-right: 2rem;
+  }
+
+  @each $type, $size in $spacing-sizes {
+    .#{$property_class}-all-#{$type} {
+      #{$property}: $size;
+    }
+
+    .#{$property_class}-vertical-#{$type} {
+      #{$property}-top: $size;
+      #{$property}-bottom: $size;
+    }
+
+    .#{$property_class}-horizontal-#{$type} {
+      #{$property}-left: $size;
+      #{$property}-right: $size;
+    }
+  }
+}
+
+
+// 02. Placeholder
+
+@mixin placeholder-style() {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+
+// 03. Global Forms
+
+@mixin global-form-styles {
+  background: white;
+  border: 1px solid $medium-gray;
+  box-shadow: none;
+}
+
+// 04. Slick
+
+@mixin slick-fade() {
+  opacity: 0;
+
+  transition: opacity $global-timing;
+  position: relative;
+
+  &.slick-initialized {
+    opacity: 1;
+  }
+}
+
+@mixin slick-arrows( $color: $light-gray, $multiply-padding: 4 ) {
+
+  padding: 0 $global-padding * $multiply-padding;
+
+  .slick-arrow {
+    position: absolute;
+    font-size: 0;
+    height: 46px;
+    width: 46px;
+    padding: 0;
+    margin: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    border-style: solid;
+    border-color: $color;
+
+    &:before, &:after {
+      display: none;
+    }
+
+    &.slick-prev {
+      left: 30px;
+      border-width: 0 0 2px 2px;
+    }
+
+    &.slick-next {
+      right: 30px;
+      border-width: 2px 2px 0 0;
+    }
+  }
+
+  @include breakpoint ( $breakpoint-mobile ) {
+    padding: 0 $global-padding * $multiply-padding / 2;
+
+    .slick-arrow {
+      height: 23px;
+      width: 23px;
+    }
+  }
+
+}

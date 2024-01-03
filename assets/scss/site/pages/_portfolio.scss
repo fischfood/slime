@@ -1,0 +1,171 @@
+.category-blocks {
+	@include breakpoint( medium ) {
+		margin: 0 $global-padding * -1;
+	}
+
+	.category-block {
+		padding: 0 $global-padding $global-padding;
+
+		@include breakpoint( $breakpoint-mobile ) {
+			width: 100%;
+		}
+	}
+
+	.category-block-content {
+
+		// Category Block Styles are now global, .cb-container
+	}
+}
+
+.portfolio-filter-container {
+	padding: $global-padding * 3 0;
+	position: relative;
+
+	select {
+		margin-bottom: 0;
+		border: none;
+		background: transparent;
+		color: $white;
+		font-size: 1.5rem;
+		font-weight: bold;
+		text-transform: uppercase;
+		border-bottom: 2px solid rgba($white, .3);
+		box-shadow: none !important;
+		outline: none !important;
+		height: auto;
+		cursor: pointer;
+
+		&.active-filter {
+			border-bottom: 2px solid $white;
+		}
+	}
+
+	.reset-container {
+		position: absolute;
+		bottom: .75rem;
+		left: 0;
+
+		a {
+			color: $white;
+			font-weight: 700;
+		}
+	}
+}
+
+.portfolio-container {
+	padding-top: $global-padding / 2;
+	padding-bottom: $global-padding / 2;
+}
+
+.portfolio-loop-container {
+	.loop-portfolio {
+		opacity: 0;
+		transition: opacity $global-timing;
+	}
+
+	&[data-mutate] {
+		.loop-portfolio {
+			opacity: 1;
+		}
+	}
+}
+
+.loop-portfolio {
+	padding: $global-padding / 2;
+}
+
+/* Single Portfolio Item */
+
+.single-portfolio {
+
+	.entry-title {
+		color: $primary-color;
+		margin-bottom: 0;
+		line-height: 1.25;
+		text-transform: uppercase;
+
+		span {
+			color: $light-gray;
+			font-size: 1.5rem;
+		}
+	}
+
+	.portfolio-content {
+		font-size: 1.5rem;
+	}
+
+	.portfolio-slider {
+		position: relative;
+		@include slick-fade();
+		@include slick-arrows( $light-gray );
+
+		.slick-slide {
+			padding: 0 $global-padding * 2;
+			> div, > div > div {
+				position: relative;
+				height: 100%;
+			}
+		}
+
+		.slide {
+			a {
+				background-size: cover;
+				background-position: center center;
+				display: block;
+
+				@include breakpoint( small only ) {
+					pointer-events: none;
+				}
+
+				img {
+					opacity: 0;
+				}
+			}
+		}
+	}
+
+	.taxonomy-bar {
+		text-align: center;
+		padding: 1.5rem;
+		margin: 2rem 0;
+
+		a {
+			font-size: 2rem;
+			margin: 0 2rem;
+			position: relative;
+			text-transform: uppercase;
+			font-weight: bold;
+
+			@include breakpoint( medium down ) {
+				font-size: 1.5rem;
+			}
+
+			+ a {
+				&:before {
+					content: "/";
+					color: $dark-primary;
+					position: absolute;
+					left: -2.25rem;
+					pointer-events: none;
+				}
+			}
+
+			@include breakpoint( small only ) {
+				display: block;
+				margin: 2rem 0;
+
+				+ a {
+					&:before {
+						content: '';
+						left: 50%;
+						top: -1rem;
+						transform: translateX(-50%);
+						width: 4rem;
+						height: 1px;
+						background-color: $dark-primary;
+					}
+				}
+			}
+		}
+	}
+}
