@@ -13,7 +13,7 @@
 ?>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_before' );
 ?>
 
@@ -34,14 +34,14 @@ do_action( 'slime_post_before' );
 
 	<div class="entry-content" itemprop="articleBody">
 		<?php
-		/** This action is documented in includes/Linchpin/utilities/hooks.php */
+		/** This action is documented in includes/Slime/utilities/hooks.php */
 		do_action( 'slime_post_entry_content_before' );
 		?>
 
 		<?php the_content(); ?>
 
 		<?php
-		/** This action is documented in includes/Linchpin/utilities/hooks.php */
+		/** This action is documented in includes/Slime/utilities/hooks.php */
 		do_action( 'slime_post_entry_content_after' );
 		?>
 	</div>
@@ -70,5 +70,5 @@ do_action( 'slime_post_before' );
 
 </article>
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_after' );

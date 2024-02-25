@@ -26,7 +26,7 @@ if ( post_password_required() ) : ?>
 <?php else : ?>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_comments_before' );
 ?>
 
@@ -80,7 +80,7 @@ do_action( 'slime_comments_before' );
 </div>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_comments_after' );
 
 endif;

@@ -19,14 +19,14 @@
         <div class="small-12 large-8 cell" role="main">
 
             <?php
-            /** This action is documented in includes/Linchpin/slime-hooks.php */
+            /** This action is documented in includes/Slime/slime-hooks.php */
             do_action( 'slime_content_before' );
             ?>
 
             <?php if ( have_posts() ) : ?>
 
                 <?php
-                /** This action is documented in includes/Linchpin/slime-hooks.php */
+                /** This action is documented in includes/Slime/slime-hooks.php */
                 do_action( 'slime_loop_before' );
                 ?>
 
@@ -38,7 +38,7 @@
                 <?php endwhile; ?>
 
                 <?php
-                /** This action is documented in includes/Linchpin/slime-hooks.php */
+                /** This action is documented in includes/Slime/slime-hooks.php */
                 do_action( 'slime_loop_after' );
                 ?>
 
@@ -49,7 +49,7 @@
             <?php get_template_part( 'partials/pagination' ); ?>
 
             <?php
-            /** This action is documented in includes/Linchpin/slime-hooks.php */
+            /** This action is documented in includes/Slime/slime-hooks.php */
             do_action( 'slime_content_after' );
             ?>
 

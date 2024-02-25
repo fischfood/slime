@@ -17,7 +17,7 @@ $thumbnail = ( get_the_post_thumbnail() ) ? 'background-image: url(' . get_the_p
     <div class="small-12 cell">
 
         <?php
-        /** This action is documented in includes/Linchpin/utilities/hooks.php */
+        /** This action is documented in includes/Slime/utilities/hooks.php */
         do_action( 'slime_post_before' );
         ?>
 
@@ -47,7 +47,7 @@ $thumbnail = ( get_the_post_thumbnail() ) ? 'background-image: url(' . get_the_p
 
 
             <?php
-            /** This action is documented in includes/Linchpin/utilities/hooks.php */
+            /** This action is documented in includes/Slime/utilities/hooks.php */
             do_action( 'slime_post_entry_content_before' );
             ?>
 
@@ -56,13 +56,13 @@ $thumbnail = ( get_the_post_thumbnail() ) ? 'background-image: url(' . get_the_p
             </div>
 
             <?php
-            /** This action is documented in includes/Linchpin/utilities/hooks.php */
+            /** This action is documented in includes/Slime/utilities/hooks.php */
             do_action( 'slime_post_entry_content_after' );
             ?>
         </article>
 
         <?php
-        /** This action is documented in includes/Linchpin/utilities/hooks.php */
+        /** This action is documented in includes/Slime/utilities/hooks.php */
         do_action( 'slime_post_after' );
         ?>
 

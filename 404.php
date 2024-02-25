@@ -20,7 +20,7 @@
 				<main id="main" class="site-main small-12 large-8 cell" role="main">
 
 					<?php
-					/** This action is documented in includes/Linchpin/utilities/hooks.php */
+					/** This action is documented in includes/Slime/utilities/hooks.php */
 					do_action( 'slime_post_entry_content_before' );
 					?>
 
@@ -63,7 +63,7 @@
 							<div class="entry-content">
 
 								<?php
-								/** This action is documented in includes/Linchpin/utilities/hooks.php */
+								/** This action is documented in includes/Slime/utilities/hooks.php */
 								do_action( 'slime_content_before' );
 								?>
 
@@ -105,14 +105,14 @@
 							</div>
 
 							<?php
-							/** This action is documented in includes/Linchpin/utilities/hooks.php */
+							/** This action is documented in includes/Slime/utilities/hooks.php */
 							do_action( 'slime_content_after' );
 							?>
 
 						</div>
 					</section>
 					<?php
-					/** This action is documented in includes/Linchpin/utilities/hooks.php */
+					/** This action is documented in includes/Slime/utilities/hooks.php */
 					do_action( 'slime_post_entry_content_after' );
 					?>
 				</main>

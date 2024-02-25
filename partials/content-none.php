@@ -13,7 +13,7 @@
 ?>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_before' ); ?>
 
 <header class="page-header">
@@ -50,5 +50,5 @@ do_action( 'slime_post_before' ); ?>
 </div>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_after' );

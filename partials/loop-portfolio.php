@@ -25,7 +25,7 @@ $avg_bg = ( $thumbnail ) ? 'background-color: #' . get_average_color( $thumbnail
 ?>
 
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_before' );
 ?>
 
@@ -44,5 +44,5 @@ do_action( 'slime_post_before' );
 
     </article>
 <?php
-/** This action is documented in includes/Linchpin/utilities/hooks.php */
+/** This action is documented in includes/Slime/utilities/hooks.php */
 do_action( 'slime_post_after' );
