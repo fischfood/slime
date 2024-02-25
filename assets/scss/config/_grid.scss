@@ -1,0 +1,48 @@
+.block-container,
+.grid-container, 
+.flex-container,
+.container {
+    width: 100%;
+    max-width: $container;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+}
+
+.block-container {
+    display: block;
+}
+
+.flex-container, .grid-container {
+    display: flex;
+}
+
+.full-bg {
+    position: relative;
+    z-index: 1;
+
+    &:before {
+        content: '';
+        background: inherit;
+        width: 100vw;
+        height: 100%;
+        margin-left: $edge-pull;
+    }
+}
+
+.align {
+    align-items: center;
+}
+
+.justify {
+    justify-content: center;
+}
+
+.shrink {
+    flex: 0 0 auto;
+}
+
+.grow {
+    flex: 1 1 100%;
+}

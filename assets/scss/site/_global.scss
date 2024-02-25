@@ -1,0 +1,82 @@
+.wave-top {
+    height: 29px;
+    width: 100%;
+
+    svg #waves {
+
+        path {
+            fill: $tmg_pumpkin !important;
+        }
+    }
+}
+
+.page-container {
+    background-color: $body-background;
+}
+
+.button {
+    display: inline-block;
+    background: $tmg_green_leaf;
+    color: $white;
+    @include cta-font();
+    padding: .5rem 1rem;
+    border-radius: 10rem;
+}
+
+.socials {
+    list-style-type: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+        font-size: 0;
+        padding: .125rem;
+
+        a {
+
+            &:before {
+                content: '';
+                display: block;
+                height: 1.5rem;
+                width: 1.5rem;
+                border-radius: 1rem;
+                border: 2px solid $tmg_coffee;
+            }
+
+            &:hover:before {
+                background-color: $tmg_coffee;
+            }
+        }
+    }
+}
+
+@include from($mobile) {
+    .hide-for-desktop, .show-for-mobile {
+        display: none;
+    }
+}
+@include until($mobile) {
+    .show-for-desktop, .hide-for-mobile {
+        display: none;
+    }
+}
+
+.main-content {
+    min-height: 40vh;
+}
+
+ul.menu {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    font-family: $cta-font;
+    font-weight: $cta-font-weight;
+    padding: 0;
+
+    a {
+        //text-decoration: none;
+    }
+}

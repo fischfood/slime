@@ -1,0 +1,73 @@
+/**
+ * 00. Variables
+ * 01. Main Footer
+ * 02. Copyright
+ */
+
+// 00. Variables
+$footer-background: $tmg_pumpkin;
+$footer-text-color: $tmg_coffee;
+$footer-text-hover: rgba($tmg_coffee, .7);
+
+$copyright-background: $tmg_coffee;
+$copyright-text-color: $white;
+$copyright-text-hover: $tmg_pumpkin;
+
+// 01. Main Footer
+footer#footer {
+    position: relative;
+    z-index: 1;
+    margin-top: -1rem;
+}
+
+.main-footer {
+    background-color: $tmg_pumpkin;
+
+    .shrink[class*="footer-"] {
+        flex: 0 0 140px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .footer-logo {
+        max-height: 100px;
+    }
+}
+
+.footer-menu {
+    li {
+        display: flex;
+        flex: 0 0 26%;
+        justify-content: center;
+        padding: $pad;
+    }
+
+    a {
+        color: $footer-text-color;
+        @include hover-wave($footer-text-hover);
+    }
+}
+
+// 02. Copyright Footer
+
+.copyright-container {
+    background-color: $copyright-background;
+    color: $copyright-text-color;
+    display: block;
+    padding: 2rem;
+    font-family: $heading-font;
+    font-size: .75rem;
+    font-weight: $heading-font-weight;
+    
+    a {
+        text-decoration: none;
+
+        &:hover {
+            color: $copyright-text-hover;
+        }
+    }
+}

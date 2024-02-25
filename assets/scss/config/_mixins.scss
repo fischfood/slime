@@ -1,144 +1,49 @@
 /**
- * 01. Spacing
- * 02. Placeholder
- * 03. Global Forms
- * 04. Slick
+ * 01. Positioning
+ * 02. Breakpoints
+ * 03. Hovers
+ * 04. Typography
  */
 
-
-// 01. Spacing
-
-@mixin spacing-layout( $property, $prefix: '' ) {
-  $property_class: #{$property} !default;
-
-  @if $prefix != '' {
-    $property_class: #{$prefix}-#{$property};
-  }
-
-  @each $direction in $directions {
-    .#{$property_class}-#{$direction} {
-      #{$property}-#{$direction}: 2rem;
-    }
-
-    @each $type, $size in $spacing-sizes {
-      .#{$property_class}-#{$direction}-#{$type} {
-        #{$property}-#{$direction}: $size;
-      }
-    }
-  }
-
-  .#{$property_class}-all {
-    #{$property}: 2rem;
-  }
-
-  .#{$property_class}-vertical {
-    #{$property}-top: 2rem;
-    #{$property}-bottom: 2rem;
-  }
-
-  .#{$property_class}-horizontal {
-    #{$property}-left: 2rem;
-    #{$property}-right: 2rem;
-  }
-
-  @each $type, $size in $spacing-sizes {
-    .#{$property_class}-all-#{$type} {
-      #{$property}: $size;
-    }
-
-    .#{$property_class}-vertical-#{$type} {
-      #{$property}-top: $size;
-      #{$property}-bottom: $size;
-    }
-
-    .#{$property_class}-horizontal-#{$type} {
-      #{$property}-left: $size;
-      #{$property}-right: $size;
-    }
-  }
+ // 01. Positioning
+ @mixin position($top: 0, $right: $top, $bottom: $top, $left: $right) {
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
 }
 
-
-// 02. Placeholder
-
-@mixin placeholder-style() {
-  &::-webkit-input-placeholder {
-    @content;
-  }
-
-  &:-moz-placeholder { /* Firefox 18- */
-    @content;
-  }
-
-  &::-moz-placeholder {  /* Firefox 19+ */
-    @content;
-  }
-
-  &:-ms-input-placeholder {
-    @content;
-  }
+ // 02. Breakpoints
+@mixin from( $px ) {
+    @media screen and (min-width: #{$px} ) {
+        @content;
+    }
+}
+  
+@mixin until( $px ) {
+    @media screen and (max-width: #{$px - 1px} ) {
+        @content;
+    }
 }
 
+// 03. Hovers
+@mixin hover-wave( $color: inherit, $underline_color: $color, $offset: 3px ) {
+    transition: color $global-timing, text-decoration-color $global-timing;
 
-// 03. Global Forms
-
-@mixin global-form-styles {
-  background: white;
-  border: 1px solid $medium-gray;
-  box-shadow: none;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-style: wavy;
+    text-underline-offset: $offset;
+    
+    &:hover {
+        color: $color;
+        text-decoration-color: $underline_color;
+    }
 }
 
-// 04. Slick
-
-@mixin slick-fade() {
-  opacity: 0;
-
-  transition: opacity $global-timing;
-  position: relative;
-
-  &.slick-initialized {
-    opacity: 1;
-  }
-}
-
-@mixin slick-arrows( $color: $light-gray, $multiply-padding: 4 ) {
-
-  padding: 0 $global-padding * $multiply-padding;
-
-  .slick-arrow {
-    position: absolute;
-    font-size: 0;
-    height: 46px;
-    width: 46px;
-    padding: 0;
-    margin: 0;
-    top: 50%;
-    transform: translateY(-50%) rotate(45deg);
-    border-style: solid;
-    border-color: $color;
-
-    &:before, &:after {
-      display: none;
-    }
-
-    &.slick-prev {
-      left: 30px;
-      border-width: 0 0 2px 2px;
-    }
-
-    &.slick-next {
-      right: 30px;
-      border-width: 2px 2px 0 0;
-    }
-  }
-
-  @include breakpoint ( $breakpoint-mobile ) {
-    padding: 0 $global-padding * $multiply-padding / 2;
-
-    .slick-arrow {
-      height: 23px;
-      width: 23px;
-    }
-  }
-
+@mixin cta-font() {
+    font-family: $cta-font;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
 }

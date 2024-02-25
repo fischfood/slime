@@ -1,0 +1,12 @@
+.wp-block-cover {
+    &.is-style-full {
+        margin-left: -1rem;
+        margin-right: -1rem;
+
+        // 1440px container
+        @media only screen and ( min-width: 1440px ) {
+            margin-left: calc( -50vw + 720px - 1rem );
+            margin-right: calc( -50vw + 720px - 1rem );
+        }
+    }
+}

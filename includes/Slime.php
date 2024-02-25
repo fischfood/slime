@@ -47,21 +47,25 @@ class Slime {
 
 		$slime      = new \Slime\Core();
 
-		add_filter( 'upload_mimes', array( $this, 'upload_mimes' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_styles' ) );
-		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'customize_register', array( $this, 'customize_register' ) );
-		add_action( 'after_setup_theme', array( $this, 'after_setup_theme' ) );
-		add_action( 'after_setup_theme', array( $this, 'add_editor_styles' ) );
+		add_filter( 'upload_mimes', [ $this, 'upload_mimes' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_styles' ] );
+		add_action( 'init', [ $this, 'init' ] );
+
+		add_action( 'customize_register', [ $this, 'customize_register_logos' ] );
+		add_action( 'customize_register', [ $this, 'customize_register_ctas' ] );
+
+		add_action( 'after_setup_theme', [ $this, 'after_setup_theme' ] );
+		add_action( 'after_setup_theme', [ $this, 'add_editor_styles' ] );
+		add_action( 'init', [ $this, 'register_block_styles' ] );
 
 		// Jetpack //
-		add_action( 'loop_start', array( $this, 'remove_jp_social' ) );
-		add_filter( 'wp', array( $this, 'remove_jp_related'), 20 );
-		add_filter( 'jetpack_relatedposts_filter_options', array( $this, 'jetpackme_no_related_posts' ) );
+		add_action( 'loop_start', [ $this, 'remove_jp_social' ] );
+		add_filter( 'wp', [ $this, 'remove_jp_related'], 20 );
+		add_filter( 'jetpack_relatedposts_filter_options', [ $this, 'jetpackme_no_related_posts' ] );
 
 		// Gravity Forms //
-		add_filter( 'gform_submit_button', array( $this, 'gform_submit_button'), 10, 2 );
+		add_filter( 'gform_submit_button', [ $this, 'gform_submit_button'], 10, 2 );
 	}
 
 	/**
@@ -78,22 +82,6 @@ class Slime {
 				'social'            => esc_html__( 'Social Links', 'slime' ),
 			)
 		);
-	}
-
-	/**
-	 * print_jquery_in_footer function.
-	 * Removes the jquery library from the header and prints it in the footer
-	 *
-	 * @access public
-	 *
-	 * @param array &$scripts
-	 *
-	 * @return void
-	 */
-	public function print_jquery_in_footer( &$scripts ) {
-		if ( ! is_admin() ) {
-			$scripts->add_data( 'jquery', 'group', 1 );
-		}
 	}
 
 	/**
@@ -149,18 +137,17 @@ class Slime {
 	 *
 	 * @param $wp_customize
 	 */
-	public function customize_register( $wp_customize ) {
+	public function customize_register_logos( $wp_customize ) {
 
 		$wp_customize->add_section(
-			'slime_logo', array(
-				'title'    => esc_html__( 'Site Logo', 'slime' ),
+			'slime_logos', array(
+				'title'    => esc_html__( 'Site Logos', 'slime' ),
 				'priority' => 80,
 			)
 		);
 
 		$wp_customize->add_setting(
-			'slime_theme_options[logo_upload]', array(
-				'default'    => get_stylesheet_directory_uri() . '/assets/images/tmg-icon-white.svg',
+			'slime_logos[logo_upload]', array(
 				'capability' => 'edit_theme_options',
 				'type'       => 'option',
 			)
@@ -169,15 +156,14 @@ class Slime {
 		$wp_customize->add_control(
 			new WP_Customize_Image_Control( $wp_customize, 'logo_upload', array(
 				'label'      => esc_html__( 'Site Logo', 'slime' ),
-				'section'    => 'slime_logo',
-				'settings'   => 'slime_theme_options[logo_upload]',
+				'section'    => 'slime_logos',
+				'settings'   => 'slime_logos[logo_upload]',
 				'extensions' => array( 'jpg', 'jpeg', 'png', 'gif', 'svg' ),
 			) )
 		);
 
 		$wp_customize->add_setting(
-			'slime_theme_options[alternate_logo_upload]', array(
-				'default'    => get_stylesheet_directory_uri() . '/assets/images/tmg-icon-white.svg',
+			'slime_logos[alternate_logo_upload]', array(
 				'capability' => 'edit_theme_options',
 				'type'       => 'option',
 			)
@@ -186,15 +172,30 @@ class Slime {
 		$wp_customize->add_control(
 			new WP_Customize_Image_Control( $wp_customize, 'alternate_logo_upload', array(
 				'label'      => esc_html__( 'Alternate Site Logo', 'slime' ),
-				'section'    => 'slime_logo',
-				'settings'   => 'slime_theme_options[alternate_logo_upload]',
+				'section'    => 'slime_logos',
+				'settings'   => 'slime_logos[alternate_logo_upload]',
 				'extensions' => array( 'jpg', 'jpeg', 'png', 'gif', 'svg' ),
 			) )
 		);
 
 		$wp_customize->add_setting(
-			'slime_theme_options[footer_logo_upload]', array(
-				'default'    => get_stylesheet_directory_uri() . '/assets/images/tmg-icon-white.svg',
+			'slime_logos[hair_logo_upload]', array(
+				'capability' => 'edit_theme_options',
+				'type'       => 'option',
+			)
+		);
+
+		$wp_customize->add_control(
+			new WP_Customize_Image_Control( $wp_customize, 'hair_logo_upload', array(
+				'label'      => esc_html__( 'Hair for Logo Fade', 'slime' ),
+				'section'    => 'slime_logos',
+				'settings'   => 'slime_logos[hair_logo_upload]',
+				'extensions' => array( 'jpg', 'jpeg', 'png', 'gif', 'svg' ),
+			) )
+		);
+
+		$wp_customize->add_setting(
+			'slime_logos[footer_logo_upload]', array(
 				'capability' => 'edit_theme_options',
 				'type'       => 'option',
 			)
@@ -203,9 +204,79 @@ class Slime {
 		$wp_customize->add_control(
 			new WP_Customize_Image_Control( $wp_customize, 'footer_logo_upload', array(
 				'label'      => esc_html__( 'Footer Site Logo', 'slime' ),
-				'section'    => 'slime_logo',
-				'settings'   => 'slime_theme_options[footer_logo_upload]',
+				'section'    => 'slime_logos',
+				'settings'   => 'slime_logos[footer_logo_upload]',
 				'extensions' => array( 'jpg', 'jpeg', 'png', 'gif', 'svg' ),
+			) )
+		);
+	}
+
+	public function customize_register_ctas( $wp_customize ) {
+
+		$wp_customize->add_section(
+			'slime_ctas', array(
+				'title'    => esc_html__( 'Site CTAs', 'slime' ),
+				'priority' => 80,
+			)
+		);
+
+		// Contact Button - Header and Footer
+		$wp_customize->add_setting(
+			'slime_ctas[contact_label]', array(
+				'default'		=> __('Contact', 'slime'),
+				'capability' 	=> 'edit_theme_options',
+				'type'			=> 'option',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Control( $wp_customize, 'contact_label', array(
+				'label'		=> __( 'Contact Button Label', 'slime' ),
+				'section' 	=> 'slime_ctas',
+				'settings' 	=> 'slime_ctas[contact_label]',
+			) )
+		);
+		$wp_customize->add_setting(
+			'slime_ctas[contact_url]', array(
+				'default'		=> 'contact',
+				'capability' 	=> 'edit_theme_options',
+				'type'			=> 'option',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Control( $wp_customize, 'contact_url', array(
+				'label'		=> __( 'Contact Button URL', 'slime' ),
+				'section' 	=> 'slime_ctas',
+				'settings' 	=> 'slime_ctas[contact_url]',
+			) )
+		);
+
+		// Header Banner
+		$wp_customize->add_setting(
+			'slime_ctas[banner_text]', array(
+				'capability' 	=> 'edit_theme_options',
+				'type'			=> 'option',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Control( $wp_customize, 'banner_text', array(
+				'label'		=> __( 'Banner Text', 'slime' ),
+				'section' 	=> 'slime_ctas',
+				'settings' 	=> 'slime_ctas[banner_text]',
+				'type' 		=> 'textarea'
+			) )
+		);
+		$wp_customize->add_setting(
+			'slime_ctas[banner_link]', array(
+				'default'		=> 'contact',
+				'capability' 	=> 'edit_theme_options',
+				'type'			=> 'option',
+			)
+		);
+		$wp_customize->add_control(
+			new WP_Customize_Control( $wp_customize, 'banner_link', array(
+				'label'		=> __( 'Banner Link', 'slime' ),
+				'section' 	=> 'slime_ctas',
+				'settings' 	=> 'slime_ctas[banner_link]',
 			) )
 		);
 	}
@@ -232,6 +303,67 @@ class Slime {
 		$admin_style = get_stylesheet_directory_uri() . '/css/admin-editor.css';
 
 		add_editor_style( $admin_style );
+	}
+
+	public function register_block_styles() {
+
+		$block_styles = array(
+			'core/button'          => array(
+				'fill-base'    => __( 'Fill Base', 'slime' ),
+				'outline-base' => __( 'Outline Base', 'slime' ),
+			),
+			'core/group'           => array(
+				'shadow'       => __( 'Shadow', 'slime' ),
+				'shadow-solid' => __( 'Shadow Solid', 'slime' ),
+				'full-height'  => __( 'Full-height', 'slime' ),
+			),
+			'core/image'           => array(
+				'shadow' => __( 'Shadow', 'slime' ),
+			),
+			'core/list'            => array(
+				'no-disc' => __( 'No Disc', 'slime' ),
+			),
+			'core/media-text'      => array(
+				'shadow-media' => __( 'Shadow', 'slime' ),
+			),
+			'core/navigation-link' => array(
+				'fill'         => __( 'Fill', 'slime' ),
+				'fill-base'    => __( 'Fill Base', 'slime' ),
+				'outline'      => __( 'Outline', 'slime' ),
+				'outline-base' => __( 'Outline Base', 'slime' ),
+			),
+			'core/cover' => array(
+				'full' => __( 'Full Width', 'slime' ),
+			),
+			'core/paragraph' => array(
+				'text-align-justify' => __( 'Align Justify', 'slime' ),
+				'links-blue' => __( 'Links Blue', 'slime' ),
+			),
+			'core/columns' => array(
+				'tablet-swap-columns' => __( 'Tablet Swap Columns', 'slime' ),
+				'text-ctas'           => __( 'Text CTAs', 'hari' ),
+				'narrow-gutter'       => __( 'Narrow Gutter', 'hari' ),
+			),
+			'core/column' => array(
+				'has-global-radius'   => __( 'Has Global Radius', 'hari' ),
+			),
+			'core/navigation' => array(
+				'tablet-accordion-submenus' => __( 'Tablet Accordion Submenus', 'slime' ),
+				'inline-links' => __( 'Inline Links', 'slime' ),
+			),
+		);
+	
+		foreach ( $block_styles as $block => $styles ) {
+			foreach ( $styles as $style_name => $style_label ) {
+				register_block_style(
+					$block,
+					array(
+						'name'  => $style_name,
+						'label' => $style_label,
+					)
+				);
+			}
+		}
 	}
 
 	// Jetpack //
@@ -516,7 +648,8 @@ function wave_repeat() {
 				</pattern>
 			</defs>
 
-			<rect x="0" y="0" width="100%" height="100%" fill="url(#waves)" />
+			<rect x="0" y="0" width="50%" height="100%" style="transform: translateX(50%);" fill="url(#waves)" />
+			<rect x="0" y="0" width="50%" height="100%" style="transform-origin: center center; transform: scaleX(-1) translateX(50%);" fill="url(#waves)" />
 		</svg>
 	</div>
 

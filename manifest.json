@@ -1,0 +1,12 @@
+{
+    "name": "The Michelle Gray",
+    "short_name": "TMG",
+    "description": "The porfolio of Michelle Gray",
+    "display": "standalone",
+    "start_url": "/?utm_source=app",
+    "background_color": "#000000",
+    "orientation": "any",
+    "theme_color": "#00bbff",
+    "icons": [
+    ]
+  }

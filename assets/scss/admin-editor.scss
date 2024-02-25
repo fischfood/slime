@@ -1,11 +1,8 @@
-@charset 'utf-8';
-
-@import 'settings';
-@import 'foundation';
-
 @import
-'config/settings',
-'config/variables',
-'config/foundation-editor',
-'config/mixins',
-'config/icon-font';
+'xxoldconfig/settings',
+'xxoldconfig/variables',
+'xxoldconfig/mixins',
+'xxoldconfig/icon-font',
+'xxoldconfig/typography',
+'plugins/plugins',
+'xxoldsite/site';

@@ -15,11 +15,9 @@
 
 <?php get_header(); ?>
 
-<?php get_template_part( 'partials/hero' ); ?>
-
-<?php if ( function_exists( 'mesh_display_sections' ) ) {
-	mesh_display_sections();
-} ?>
+<div class="container padding-vertical">
+    <?php the_content(); ?>
+</div>
 
 <?php
 get_footer();

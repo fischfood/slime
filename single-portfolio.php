@@ -23,25 +23,11 @@ $company_list = get_the_terms(get_the_ID(), 'company' );
 
         <?php while ( have_posts() ) : the_post(); ?>
 
-            <div class="large reveal portfolio-reveal single-modal" data-id="<?php echo get_the_ID(); ?>" id="portfolio-modal-<?php echo get_the_ID(); ?>" data-reveal data-animation-in="fade-in" data-animation-out="fade-out">
-
-                <button class="close-button" data-close aria-label="Close modal" type="button">
-                    ✕
-                </button>
-
-                <img src="<?php echo esc_url( $portfolio_header_image ); ?>">
-
-            </div>
-
             <div class="pull-under-large grid-container">
                 <div class="grid-x">
                     <div class="small-12 large-7 cell small-order-2 medium-order-1">
 
-                        <?php /* <a href="#" data-featherlight="<?php echo esc_url( $portfolio_header_image ); ?>"><img src="<?php echo esc_url( $portfolio_header_image ); ?>" /></a> */ ?>
-                        <div class="show-for-medium" data-open="portfolio-modal-<?php echo get_the_ID(); ?>" style="background-image: url( <?php echo esc_url( $image ); ?> );">
-                            <img src="<?php echo esc_url( $portfolio_header_image ); ?>" />
-                        </div>
-                        <div class="hide-for-medium" style="background-image: url( <?php echo esc_url( $image ); ?> );">
+                        <div class="" style="background-image: url(  );">
                             <img src="<?php echo esc_url( $portfolio_header_image ); ?>" />
                         </div>
 
