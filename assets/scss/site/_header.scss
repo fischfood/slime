@@ -6,9 +6,11 @@
  * 03. Mobile Nav
  */
 
- $header-background: $body-background;
- $header-scrolled-background: $tmg_pumpkin;
- $header-timing: $global-timing * 1.25;
+$header-background: $body-background;
+$header-scrolled-background: $tmg_pumpkin;
+
+$logo-timing-down: $global-timing * 1.25;
+$logo-timing-up: $global-timing * .75;
 
 // 01. Banner
 .header-banner {
@@ -46,7 +48,7 @@ header#header {
     z-index: 1060;
     background: $header-background;
     box-shadow: 0px 0px 10px rgba($tmg_raked_leaf, .2);
-    transition: background $header-timing $global-easing, box-shadow $header-timing $global-easing;
+    transition: background $global-timing $global-easing, box-shadow $global-timing $global-easing;
 
     .header-logo-link {
         position: relative;
@@ -55,7 +57,9 @@ header#header {
     .header-logo {
         height: 140px;
         width: 140px;
-        transition: height $header-timing $global-easing $header-timing/2, opacity $header-timing $global-easing $header-timing * 1.25;
+
+        // Scroll Up -> Appear Transition
+        transition: height $logo-timing-up $global-easing, opacity $logo-timing-up * 2 $global-easing $logo-timing-up;
     }
 
     .alt-logo-container {
@@ -71,7 +75,9 @@ header#header {
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            transition: opacity $header-timing $global-easing;
+
+            // Scroll Up -> Fade Away Transition
+            transition: opacity $logo-timing-up $global-easing;
         }
     }
 
@@ -89,7 +95,9 @@ header#header {
             background-size: contain;
             background-position: center;
             background-repeat: no-repeat;
-            transition: scale $header-timing $global-easing $header-timing/2, margin $header-timing $global-easing $header-timing/2;
+
+            // Scroll Up Transition
+            transition: scale $logo-timing-up $global-easing, margin $logo-timing-up $global-easing;
         }
     }
 
@@ -153,17 +161,22 @@ body.header-shrunk {
         .header-logo {
             height: 60px;
             opacity: 0;
-            transition: height $header-timing $global-easing $header-timing/2, opacity $header-timing $global-easing;
+
+            // Scroll Down - Fade Away Transition (Fade Instantly, Shrink with delay)
+            transition: opacity $logo-timing-down $global-easing, height $logo-timing-down $global-easing $logo-timing-down / 2;
         }
 
         .alt-logo {
             opacity: 1;
-            transition: opacity $header-timing $global-easing $header-timing * 1.25;
+
+            // Scroll Down - Appear Transition (Fade in, with delay)
+            transition: opacity $logo-timing-down $global-easing $logo-timing-down * 1;
         }
 
         .hair-logo {
             scale: 1.2;
             margin: 7px 0 0 -1px;
+            transition: scale $logo-timing-down / 2 $global-easing $logo-timing-down / 2, margin $logo-timing-down / 2 $global-easing $logo-timing-down / 2;
         }
     }
 }
