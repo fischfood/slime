@@ -21,7 +21,6 @@ do_action( 'slime_post_before' );
 
 	<header>
 		<?php the_title( '<h3 class="entry-title" itemprop="name"><a href="' . get_the_permalink() . '" itemprop="url">', '</a></h3>' ); ?>
-		<?php slime_entry_meta(); ?>
 	</header>
 
 	<?php if ( has_post_thumbnail() ) : ?>

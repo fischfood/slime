@@ -47,17 +47,22 @@ class Slime {
 
 		$slime      = new \Slime\Core();
 
+		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'after_setup_theme', [ $this, 'after_setup_theme' ] );
 		add_filter( 'upload_mimes', [ $this, 'upload_mimes' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_styles' ] );
-		add_action( 'init', [ $this, 'init' ] );
+		
+		add_action( 'after_setup_theme', [ $this, 'add_editor_styles' ] );
 
+		// Customizer //
 		add_action( 'customize_register', [ $this, 'customize_register_logos' ] );
 		add_action( 'customize_register', [ $this, 'customize_register_ctas' ] );
 
-		add_action( 'after_setup_theme', [ $this, 'after_setup_theme' ] );
-		add_action( 'after_setup_theme', [ $this, 'add_editor_styles' ] );
 		add_action( 'init', [ $this, 'register_block_styles' ] );
+
+		// Posts //
+		add_action( 'pre_get_posts', [ $this, 'pgp_solutions'] );
 
 		// Jetpack //
 		add_action( 'loop_start', [ $this, 'remove_jp_social' ] );
@@ -99,6 +104,21 @@ class Slime {
 	}
 
 	/**
+	 * slime_upload_mimes function.
+	 *
+	 * @access public
+	 *
+	 * @param array $mimes (default: array())
+	 *
+	 * @return array
+	 */
+	public function upload_mimes( $mimes = array() ) {
+		$mimes[ 'svg' ] = 'image/svg+xml';
+
+		return $mimes;
+	}
+
+	/**
 	 * Add wp_enqueue_scripts.
 	 *
 	 * @access public
@@ -123,6 +143,15 @@ class Slime {
 			wp_enqueue_style('slime-css', get_stylesheet_directory_uri() . '/css/slime.css', array(), SLIME_VERSION );
 			
 		}
+	}
+
+	/**
+	 * Add customized styles to the WordPress admin to match frontend editing.
+	 */
+	public function add_editor_styles() {
+		$admin_style = get_stylesheet_directory_uri() . '/css/admin-editor.css';
+
+		add_editor_style( $admin_style );
 	}
 
 	/*
@@ -281,30 +310,6 @@ class Slime {
 		);
 	}
 
-	/**
-	 * slime_upload_mimes function.
-	 *
-	 * @access public
-	 *
-	 * @param array $mimes (default: array())
-	 *
-	 * @return array
-	 */
-	public function upload_mimes( $mimes = array() ) {
-		$mimes[ 'svg' ] = 'image/svg+xml';
-
-		return $mimes;
-	}
-
-	/**
-	 * Add customized styles to the WordPress admin to match frontend editing.
-	 */
-	public function add_editor_styles() {
-		$admin_style = get_stylesheet_directory_uri() . '/css/admin-editor.css';
-
-		add_editor_style( $admin_style );
-	}
-
 	public function register_block_styles() {
 
 		$block_styles = array(
@@ -312,45 +317,15 @@ class Slime {
 				'fill-base'    => __( 'Fill Base', 'slime' ),
 				'outline-base' => __( 'Outline Base', 'slime' ),
 			),
-			'core/group'           => array(
-				'shadow'       => __( 'Shadow', 'slime' ),
-				'shadow-solid' => __( 'Shadow Solid', 'slime' ),
-				'full-height'  => __( 'Full-height', 'slime' ),
-			),
-			'core/image'           => array(
-				'shadow' => __( 'Shadow', 'slime' ),
+			'core/cover' => array(
+				'full' => __( 'Full Width', 'slime' ),
 			),
 			'core/list'            => array(
 				'no-disc' => __( 'No Disc', 'slime' ),
 			),
-			'core/media-text'      => array(
-				'shadow-media' => __( 'Shadow', 'slime' ),
-			),
-			'core/navigation-link' => array(
-				'fill'         => __( 'Fill', 'slime' ),
-				'fill-base'    => __( 'Fill Base', 'slime' ),
-				'outline'      => __( 'Outline', 'slime' ),
-				'outline-base' => __( 'Outline Base', 'slime' ),
-			),
-			'core/cover' => array(
-				'full' => __( 'Full Width', 'slime' ),
-			),
-			'core/paragraph' => array(
-				'text-align-justify' => __( 'Align Justify', 'slime' ),
-				'links-blue' => __( 'Links Blue', 'slime' ),
-			),
-			'core/columns' => array(
-				'tablet-swap-columns' => __( 'Tablet Swap Columns', 'slime' ),
-				'text-ctas'           => __( 'Text CTAs', 'hari' ),
-				'narrow-gutter'       => __( 'Narrow Gutter', 'hari' ),
-			),
-			'core/column' => array(
-				'has-global-radius'   => __( 'Has Global Radius', 'hari' ),
-			),
-			'core/navigation' => array(
-				'tablet-accordion-submenus' => __( 'Tablet Accordion Submenus', 'slime' ),
-				'inline-links' => __( 'Inline Links', 'slime' ),
-			),
+			'core/separator' => [
+				'squiggle' => __( 'Squiggle', 'slime' ),
+			],
 		);
 	
 		foreach ( $block_styles as $block => $styles ) {
@@ -365,6 +340,14 @@ class Slime {
 			}
 		}
 	}
+
+	// Posts - PGP //
+	function pgp_solutions( $query ) {
+		if ( is_post_type_archive( 'solution' ) && $query->is_main_query() && ! is_admin() ) {
+			$query->set( 'post_parent', 0 );
+		}
+	}
+
 
 	// Jetpack //
 	/**
@@ -517,35 +500,6 @@ if ( ! function_exists( 'get_primary_taxonomy_link' ) ) {
 		return $link;
 
 	}
-}
-
-function legacy_get_average_color($filename, $as_hex_string = true) {
-	try {
-// Read image file with Image Magick
-		$image = new Imagick($filename);
-// Scale down to 1x1 pixel to make Imagick do the average
-		$image->scaleimage(1, 1);
-		/** @var ImagickPixel $pixel */
-		if(!$pixels = $image->getimagehistogram()) {
-			return null;
-		}
-	} catch(ImagickException $e) {
-// Image Magick Error!
-		return null;
-	} catch(Exception $e) {
-// Unknown Error!
-		return null;
-	}
-	$pixel = reset($pixels);
-	$rgb = $pixel->getcolor();
-	if($as_hex_string) {
-		return sprintf('%02X%02X%02X', $rgb['r'], $rgb['g'], $rgb['b']);
-	}
-	return $rgb;
-}
-
-function get_average_color($filename, $as_hex_string = true) {
-	return 'CFE0DD';
 }
 
 function get_related_portfolio( $taxonomies = array(), $classes = '', $number = 4, $view_all = true ) {

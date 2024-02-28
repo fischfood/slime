@@ -21,7 +21,6 @@ do_action( 'slime_post_before' );
 
 	<header>
 		<?php the_title( '<h1 class="entry-title" itemprop="name">', '</h1>' ); ?>
-		<?php slime_entry_meta(); ?>
 	</header>
 
 	<?php if ( has_post_thumbnail() ) : ?>

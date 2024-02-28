@@ -21,6 +21,15 @@ $tmg_raked_leaf: #A67667;
 $white: #fff;
 $black: #000;
 
+$color-map: (
+    'coffee': $tmg_coffee,
+    'cream': $tmg_cream,
+    'pumpkin': $tmg_pumpkin,
+    'green-leaf': $tmg_green_leaf,
+    'fallen-leaf': $tmg_fallen_leaf,
+    'raked-leaf': $tmg_raked_leaf
+);
+
 // * * 01.1 Assignments
 $body-background: $tmg_cream;
 
@@ -28,7 +37,7 @@ $body-background: $tmg_cream;
 $pad: 1rem;
 
 // - - Max Width of Content
-$container: 1440px;
+$container: 1280px;
 
 // - - Negative margin to pull items out of container to the edges of the browser
 $edge-pull: calc( ( 100vw - $container ) / 2 );

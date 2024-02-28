@@ -47,7 +47,7 @@ header#header {
     position: relative;
     z-index: 1060;
     background: $header-background;
-    box-shadow: 0px 0px 10px rgba($tmg_raked_leaf, .2);
+    box-shadow: 0px 0px 10px rgba($tmg_raked_leaf, 0);
     transition: background $global-timing $global-easing, box-shadow $global-timing $global-easing;
 
     .header-logo-link {
@@ -163,7 +163,7 @@ body.header-shrunk {
             opacity: 0;
 
             // Scroll Down - Fade Away Transition (Fade Instantly, Shrink with delay)
-            transition: opacity $logo-timing-down $global-easing, height $logo-timing-down $global-easing $logo-timing-down / 2;
+            transition: opacity $logo-timing-down $global-easing, height $logo-timing-down $global-easing calc($logo-timing-down / 2);
         }
 
         .alt-logo {
@@ -176,7 +176,7 @@ body.header-shrunk {
         .hair-logo {
             scale: 1.2;
             margin: 7px 0 0 -1px;
-            transition: scale $logo-timing-down / 2 $global-easing $logo-timing-down / 2, margin $logo-timing-down / 2 $global-easing $logo-timing-down / 2;
+            transition: scale calc(calc($logo-timing-down / 2)) $global-easing calc($logo-timing-down / 2), margin calc($logo-timing-down / 2) $global-easing calc($logo-timing-down / 2);
         }
     }
 }

@@ -31,8 +31,6 @@ export default function site() {
             admin_bar = 32;
         }
 
-        console.log( admin_bar );
-
         if ( header_banner_height <= $doc.scrollTop() && $window.width() > 767  ) {
             $body.addClass( 'header-scrolled' );
         } else {
