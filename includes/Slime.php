@@ -320,6 +320,9 @@ class Slime {
 			'core/cover' => array(
 				'full' => __( 'Full Width', 'slime' ),
 			),
+			'core/group' => array(
+				'full' => __( 'Full Width', 'slime' ),
+			),
 			'core/list'            => array(
 				'no-disc' => __( 'No Disc', 'slime' ),
 			),
@@ -611,4 +614,8 @@ function wave_repeat() {
 	ob_end_clean();
 
 	echo $waves;
+}
+
+function wave_divider( $classes = '' ) {
+	printf( '<div class="wave-divider-container %s"><div class="wave-divider"><div class="wave-divider-dots"></div></div></div>', $classes);
 }

@@ -56,44 +56,15 @@ export default function site() {
         }
     });
 
-    if ( $('.portfolio-filter-container').length ) {
-        $body.on( 'change', '.portfolio-filter-container select', portfolioFilter );
+    // Global Toggles
+    $body
+        .on( 'click', 'button[aria-expanded]', buttonToggle );
+
+    // Waves
+    if ( $('.wave-divider').length ) {
+        $(window).on('load resize', waveDividerEdges );
     }
 
-
-    if ($('.portfolio-slider').length) {
-        portfolioSlider();
-
-        $body.on( 'click', '.pm-trigger', portfolioModal );
-    }
-
-    if ($('.testimonial-slider').length) {
-        testimonialSlider();
-    }
-
-    if ($('.company-slider').length) {
-        companySlider();
-    }
-
-    if ( $('.gform_wrapper').length ) {
-
-        gformLabels();
-
-        $('.gform_wrapper input').blur( function() {
-            if ( $(this).val() != '' ) {
-                $(this).addClass('input-active');
-            } else {
-                $(this).removeClass('input-active')
-            }
-        })
-    }
-
-    // InView Progress Bars
-    $('.progress-bar').on( 'inview', function() {
-        if ( $(this).hasClass('not-in-view') ) {
-            $(this).removeClass('not-in-view');
-        }
-    } );
 
     //////////////////////////
     //                      //
@@ -101,109 +72,40 @@ export default function site() {
     //                      //
     //////////////////////////
 
-    function portfolioFilter( event ) {
+    function buttonToggle( event ) {
+        let toToggle = $(this).attr('aria-controls');
 
-        var url = $(this).val();
-
-        if ( url != '' ) {
-            window.location = url;
+        if ( $(this).attr('aria-expanded') === 'false' ) {
+            $(this).attr('aria-expanded', 'true' );
+            $('#' + toToggle).removeAttr('hidden')
+        } else {
+            $(this).attr('aria-expanded', 'false' );
+            $('#' + toToggle).attr('hidden', true );
         }
     }
 
-    function portfolioSlider() {
+    function waveDividerEdges() {
+        // Image size is 60 x 20, real height is 15px;
+        let waveHeight = 13,
+            waveLength = 52,
+            waveStroke = 4;
 
-        $(window).bind( 'load', function() {
-            $('.portfolio-slider').slick({
-                dots: false,
-                arrows: true,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                draggable: false,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 1,
-                        }
-                    },
-                ]
-            });
-        })
+        // Amplitude of the wave - Variation from center ( (height - stroke) / 2)
+        let amplitude = ( ( waveHeight - waveStroke ) / 2 );
 
-        $('.portfolio-slider').on('setPosition', function () {
-            $(this).find('.slick-slide').height('auto');
-            var slickTrack = $(this).find('.slick-track');
-            var slickTrackHeight = $(slickTrack).height();
-            $(this).find('.slick-slide').css('height', slickTrackHeight + 'px');
+        // Phase shift to start at highest point when x = 0
+        var phaseShift = Math.PI / 2;
+
+        $('.wave-divider').each( function() {
+
+            let width = $(this).width(),
+                fromCenter = width / 2;
+        
+            // Calculate y-coordinate using the sine wave equation
+            let y = amplitude * Math.sin((2 * Math.PI / waveLength) * fromCenter - phaseShift);
+
+            $('.wave-divider-dots', $(this) ).css('top', y).addClass('visible');
+
         });
-    }
-
-    function portfolioModal() {
-        var trigger = $(this).data('open-trigger');
-
-        if ( $window.width() > 639 ) {
-            $('.pm-block.' + trigger).trigger('click');
-        }
-    }
-
-    function testimonialSlider() {
-
-        $(window).bind( 'load', function() {
-            $('.testimonial-slider').slick({
-                dots: false,
-                arrows: true,
-                fade: true,
-            });
-        })
-
-        $('.testimonial-slider').on('setPosition', function () {
-            $(this).find('.slick-slide').height('auto');
-            var slickTrack = $(this).find('.slick-track');
-            var slickTrackHeight = $(slickTrack).height();
-            $(this).find('.slick-slide').css('height', slickTrackHeight + 'px');
-        });
-    }
-
-    function companySlider() {
-
-        $(window).bind( 'load', function() {
-            $('.company-slider').slick({
-                dots: false,
-                arrows: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                autoplay: true,
-                responsive: [
-                    {
-                        breakpoint: 768,
-                        settings: {
-                            slidesToShow: 2,
-                        }
-                    },
-                    {
-                        breakpoint: 540,
-                        settings: {
-                            slidesToShow: 1,
-                        }
-                    },
-                ]
-            });
-        })
-
-        $('.company-slider').on('setPosition', function () {
-            $(this).find('.slick-slide').height('auto');
-            var slickTrack = $(this).find('.slick-track');
-            var slickTrackHeight = $(slickTrack).height();
-            $(this).find('.slick-slide').css('height', slickTrackHeight + 'px');
-        });
-    }
-
-    function gformLabels() {
-        $('.move-label .ginput_container_text, .move-label .ginput_container_email').each( function() {
-            var label = $(this).parents('li.gfield').children('label').html();
-
-            $(this).append('<span class="inner-label"></span>');
-            $('.inner-label', $(this)).html( label );
-        })
     }
 }

@@ -10,8 +10,9 @@
     }
 }
 
-.page-container {
+body, .page-container {
     background-color: $body-background;
+    color: $body-color;
 }
 
 .button {
@@ -78,5 +79,104 @@ ul.menu {
 
     a {
         //text-decoration: none;
+    }
+}
+
+.wave-divider {
+
+    $default_wave_hex_svg: str-replace('' + $tmg_coffee, '\#', '%23');
+
+    height: 20px;
+    width: calc(100% - 4px);
+    background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 14.67"><path class="cls-1" d="M60,14.67c-8.24,0-12.55-2.78-16.35-5.23-3.69-2.38-6.88-4.44-13.65-4.44s-9.95,2.06-13.64,4.44c-3.81,2.45-8.12,5.23-16.35,5.23v-5c6.76,0,9.95-2.06,13.65-4.44C17.45,2.78,21.76,0,30,0s12.55,2.78,16.35,5.23c3.69,2.38,6.88,4.44,13.65,4.44v5Z" style="fill:#{$default_wave_hex_svg};"/></svg>');
+    background-position: center center;
+    position: relative;
+    background-size: 52px 13px; // Original 60 x 15
+    background-repeat: repeat-x;
+
+    &-dots {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        margin-top: 8.25px; // 7.5px; // Half wave height? There's a formula but I don't know it
+        opacity: 0;
+        transition: opacity $global-timing $global-easing;
+
+        &.visible {
+            opacity: 1;
+        }
+
+        &:before,
+        &:after {
+            content: '';
+            position: absolute;
+            height: 4px;
+            width: 4px;
+            background: $tmg_coffee;
+            border-radius: 4px;
+        }
+
+        &:before {
+            left: -2px;
+        }
+
+        &:after {
+            right: -2px;
+        }
+    }
+}
+
+@each $label, $hex in $color-map {
+    $hex_svg: str-replace('' + $hex, '\#', '%23');
+
+    .wave-divider {
+        &.has-#{$label}-color {
+            background-image: url('data:image/svg+xml,<%3Fxml version="1.0" encoding="UTF-8"%3F><svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 14.67"><path class="cls-1" d="M60,14.67c-8.24,0-12.55-2.78-16.35-5.23-3.69-2.38-6.88-4.44-13.65-4.44s-9.95,2.06-13.64,4.44c-3.81,2.45-8.12,5.23-16.35,5.23v-5c6.76,0,9.95-2.06,13.65-4.44C17.45,2.78,21.76,0,30,0s12.55,2.78,16.35,5.23c3.69,2.38,6.88,4.44,13.65,4.44v5Z" style="fill:#{$hex_svg};"/></svg>');
+
+            .wave-divider-dots {
+                &:before, &:after {
+                    background-color: $hex;
+                }
+            }
+        }
+    }
+}
+
+$spacing-shortcuts: ("margin": "m", "padding": "p");
+$spacing-directions: ("top": "t", "right": "r", "bottom": "b", "left": "l");
+$spacing-horizontal: "x";
+$spacing-vertical: "y";
+$spacing-values: ("0": 0, "25": 0.25rem, "5": 0.5rem, "75": 0.75rem, "1": 1rem, "1-5": 1.5rem, "2": 2rem, "2-5": 2.5rem, "3": 3rem, "4": 4rem, "auto": auto);
+
+@each $property, $shortcut in $spacing-shortcuts {
+    @each $name, $value in $spacing-values {
+
+        // All directions
+        .#{$shortcut}-#{$name} {
+            #{$property}: $value !important;
+        }
+
+        // Cardinal directions
+        @each $direction, $suffix in $spacing-directions {
+            .#{$shortcut}#{$suffix}-#{$name} {
+                #{$property}-#{$direction}: $value !important;
+            }
+        }
+
+        // Horizontal axis
+        @if $spacing-horizontal !=null {
+            .#{$shortcut}#{$spacing-horizontal}-#{$name} {
+                #{$property}-left: $value !important;
+                #{$property}-right: $value !important;
+            }
+        }
+
+        // Vertical axis
+        @if $spacing-vertical !=null {
+            .#{$shortcut}#{$spacing-vertical}-#{$name} {
+                #{$property}-top: $value !important;
+                #{$property}-bottom: $value !important;
+            }
+        }
     }
 }
