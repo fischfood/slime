@@ -1,4 +1,4 @@
-.wp-block-cover {
+.wp-block-cover, .wp-block-group {
     &.is-style-full {
         @include pull_full();
     }

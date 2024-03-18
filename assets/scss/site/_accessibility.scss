@@ -1,0 +1,44 @@
+details {
+    summary {
+        cursor: pointer;
+
+        &[class*="accordion"] {
+            &::marker {
+                font-size: 0;
+            }
+
+            &:after {
+                @include icon-font;
+                content: $icon-plus;
+            }
+        }
+    }
+
+    &[open] > summary {
+        &:after {
+            content: $icon-minus;
+        }
+    }
+}
+
+button[aria-expanded] {
+    cursor: pointer;
+}
+
+h1, h2, h3 {
+    button[aria-expanded] {
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0;
+
+        &:after {
+            @include icon-font;
+            content: $icon-arrow-down;
+        }
+
+        &[aria-expanded=true]:after {
+            content: $icon-arrow-up;
+        }
+    }
+}

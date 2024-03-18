@@ -14,8 +14,16 @@
     display: block;
 }
 
-.flex-container, .grid-container {
+.flex-container {
     display: flex;
+
+    &.column {
+        flex-direction: column;
+    }
+}
+
+.grid-container {
+    display: grid;
 }
 
 .full-bg {

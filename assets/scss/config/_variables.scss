@@ -2,9 +2,8 @@
  * 01. Colors
  * * 01.1 Assignments
  * 02. Sizes
- * * 02.1 Breakpoints
- * 03. Globals
- * 04. Maps
+ * 03. Breakpoints
+ * 04. Globals
  * 05. Fonts
 
  */
@@ -18,7 +17,8 @@ $tmg_green_leaf: #878B6B;
 $tmg_fallen_leaf: #F1B968;
 $tmg_raked_leaf: #A67667;
 
-$white: #fff;
+$white: $tmg_cream;
+$true-white: #fff;
 $black: #000;
 
 $color-map: (
@@ -32,6 +32,7 @@ $color-map: (
 
 // * * 01.1 Assignments
 $body-background: $tmg_cream;
+$body-color: $tmg_coffee;
 
 // 02. Sizes
 $pad: 1rem;
@@ -42,48 +43,18 @@ $container: 1280px;
 // - - Negative margin to pull items out of container to the edges of the browser
 $edge-pull: calc( ( 100vw - $container ) / 2 );
 
-// 02.1 Breakpoints
+// 03. Breakpoints
 $small: 480px;
 $mobile: 768px;
+$tablet: 1024px;
 $medium: 1440px;
 $large: 1920px;
 $xlarge: 2560px;
 
-// 03. Globals
+// 04. Globals
 $global-timing: .3s;
 $global-easing: ease-in-out;
 $global-radius: .25rem;
-
-// 04. Maps
-$breakpoints: (
-    'small': $small,
-    'mobile': $mobile,
-    'medium': $medium,
-    'large': $large,
-    'xlarge': $xlarge,
-);
-
-$horizontal: (
-    left,
-    center,
-    right
-);
-
-$vertical: (
-    top,
-    middle,
-    bottom
-);
-
-$spacing: (
-    "none": 0,
-    "half": .5rem,
-    "small": 1rem,
-    "": 1rem,
-    "medium": 2rem,
-    "large": 4rem,
-    "xlarge": 6rem
-);
 
 // 05. Fonts
 
