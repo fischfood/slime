@@ -112,6 +112,7 @@ function javascript() {
 		.pipe(named())
 		.pipe($.sourcemaps.init())
 		.pipe(webpackStream(webpackConfig, webpack2))
+        .on('error', function() {})
 		.pipe($.if(PRODUCTION, $.uglify()
 			.on('error', e => { console.log(e); })
 		))
