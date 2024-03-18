@@ -15,7 +15,7 @@ h1, h2, h3, h4, h5, h6,
 
 $icon-font: 'tmg';
 
-@mixin set-font ( $font: $icon-font ) {
+@mixin icon-font ( $font: $icon-font ) {
   font-family: '#{$font}';
   speak: none;
   font-style: normal;
@@ -29,7 +29,7 @@ $icon-font: 'tmg';
   -moz-osx-font-smoothing: grayscale;
 }
 
-@mixin set-font-family ( $font: $icon-font ) {
+@mixin icon-font-family ( $font: $icon-font ) {
 	@font-face {
 		font-family: '#{$font}';
 		src:url('../assets/fonts/#{$font}.eot');
@@ -49,8 +49,13 @@ $icon-font: 'tmg';
 	}
 }
 
-@include set-font-family ( $icon-font );
+@include icon-font-family ( $icon-font );
 
-[class^="icon-"], [class*=" icon-"] {
-  @include set-font( $icon-font );
+[class^="icon-"], [class*=" icon-"], [class*="has-icon"]:before, [class*="has-after-icon"]:after {
+  @include icon-font( $icon-font );
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    @extend %headings !optional;
 }

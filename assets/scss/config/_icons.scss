@@ -1,0 +1,41 @@
+$icon-face: unquote('"\\e900"');
+$icon-stacked: unquote('"\\e901"');
+$icon-stacked-full: unquote('"\\e902"');
+$icon-stacked-full-top: unquote('"\\e903"');
+$icon-stacked-full-bottom: unquote('"\\e904"');
+$icon-logo-horizontal: unquote('"\\e905"');
+$icon-plus: unquote('"\\e906"');
+$icon-minus: unquote('"\\e907"');
+$icon-arrow-up: unquote('"\\e908"');
+$icon-arrow-down: unquote('"\\e909"');
+$icon-arrow-left: unquote('"\\e90a"');
+$icon-arrow-right: unquote('"\\e90b"');
+$icon-quote-open: unquote('"\\e90c"');
+$icon-quote-close: unquote('"\\e90d"');
+$icon-lightbulb: unquote('"\\e90e"');
+$icon-lightbulb-fill: unquote('"\\e90f"');
+
+$icon-map: (
+    'icon-face': unquote('"\\e900"'),
+    'icon-stacked': unquote('"\\e901"'),
+    'icon-stacked-full': unquote('"\\e902"'),
+    'icon-stacked-full-top': unquote('"\\e903"'),
+    'icon-stacked-full-bottom': unquote('"\\e904"'),
+    'icon-logo-horizontal': unquote('"\\e905"'),
+    'icon-plus': unquote('"\\e906"'),
+    'icon-minus': unquote('"\\e907"'),
+    'icon-arrow-up': unquote('"\\e908"'),
+    'icon-arrow-down': unquote('"\\e909"'),
+    'icon-arrow-left': unquote('"\\e90a"'),
+    'icon-arrow-right': unquote('"\\e90b"'),
+    'icon-quote-open': unquote('"\\e90c"'),
+    'icon-quote-close': unquote('"\\e90d"'),
+    'icon-lightbulb': unquote('"\\e90e"'),
+    'icon-lightbulb-fill': unquote('"\\e90f"'),
+);
+
+@each $icon, $code in $icon-map {
+    .#{$icon}:before, .has-#{$icon}:before, .has-after-#{$icon}:after {
+        content: $code;
+    }
+}
